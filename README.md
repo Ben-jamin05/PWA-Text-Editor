@@ -16,7 +16,7 @@ Use this [Link]() to go to the website.
 
 ## Credits 
 
-me
+me, starter code
 
 ## License
 
