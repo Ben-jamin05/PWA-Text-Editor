@@ -1,4 +1,4 @@
-const { offlineFallback, warmStrategyCache } = require('workbox-recipes');
+const { warmStrategyCache } = require('workbox-recipes');
 const { CacheFirst, StaleWhileRevalidate } = require('workbox-strategies');
 const { registerRoute } = require('workbox-routing');
 const { CacheableResponsePlugin } = require('workbox-cacheable-response');
@@ -31,49 +31,13 @@ registerRoute(
   ({ request }) =>
     request.destination === 'style' ||
     request.destination === 'script' ||
-    request.destination === 'image',
+    request.destination === 'worker',
   new StaleWhileRevalidate({
     cacheName: 'asset-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
   })
 );
-
-offlineFallback({
-  pageFallback: '/index.html',
-});
-
-const CACHE_NAME = 'cache-v1';
-const urlsToCache = [
-  '/',
-  '/src/css/style.css',
-  '/src/js/index.js',
-  '/src/images/logo.png'
-];
-
-self.addEventListener('install', (e) =>
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
-  )
-);
-
-self.addEventListener('activate', (e) =>
-  e.waitUntil(
-    caches.keys().then((keyList) =>
-      Promise.all(
-        keyList.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      )
-    )
-  )
-);
-
-self.addEventListener('activate', (e) => {
-  e.waitUntil(clients.claim());
-});
-
-self.addEventListener('fetch', (e) =>
-  e.respondWith(caches.match(e.request).then((res) => res || fetch(e.request)))
-);
-
