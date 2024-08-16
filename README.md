@@ -2,7 +2,7 @@
 
 ## Description
 
-My motivation for this project was to create a PWA text editor. This consists of using  to create . I accomplished this with my skills in  and my knew knowledge of . 
+My motivation for this project was to create a PWA text editor. This consists of using webpack, indexedDB and sw to create caches, indexedDB and an installable site for offline use. I accomplished this with my skills in js and my knew knowledge of webpack and indexedDB. 
 
 ## Installation
 
@@ -10,8 +10,7 @@ Run npm i in the integrated terminal to be able to install all dependancies.
 
 ## Usage
 
-Use this [Link]() to go to the website.
-
+Use this [Link](https://pwa-text-editor-challenge-in96.onrender.com) to go to the website.
 
 
 ## Credits 
@@ -46,4 +45,4 @@ SOFTWARE.
 
 ## Links
 
-[Link]()
+[Link](https://pwa-text-editor-challenge-in96.onrender.com)
